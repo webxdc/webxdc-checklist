@@ -1,0 +1,14 @@
+# NODE
+node_modules
+package-lock.json
+
+# BUILD
+**/__*/*
+.static
+*.xdc
+webxdc.js
+create-xdc.sh
+
+# LOCAL
+.env*
+!.env-sample
