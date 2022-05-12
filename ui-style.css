@@ -1,0 +1,33 @@
+:root {
+	--AppPadding: 7px;
+}
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.AppMessageForm {
+	display: flex;
+}
+
+.AppMessageField, .AppMessageButton {
+	padding: var(--AppPadding);
+	border: 1px solid black;
+	border-radius: var(--AppPadding);
+
+	margin: 0;
+}
+
+
+.AppMessageField {
+	border-right: none;
+	border-radius: var(--AppPadding) 0 0 var(--AppPadding);
+}
+
+.AppMessageButton {
+	border-radius: 0 var(--AppPadding) var(--AppPadding) 0;
+	
+	background: black;
+	background: lightgray;
+}
+
