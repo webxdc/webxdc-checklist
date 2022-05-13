@@ -48,7 +48,7 @@ const mod = {
 		  	doc.items = [];
 		  }
 
-		  doc.items.push({
+		  doc.items.unshift({
 				guid: created.toString(36),
 				text: inputData,
 				done: false,
