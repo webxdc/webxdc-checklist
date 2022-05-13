@@ -83,7 +83,7 @@ const mod = {
 			form.remove();
 
 			if (!response.trim().length) {
-				return mod.ControlDelete(item);
+				return mod.ControlDelete(index);
 			}
 
 			window[item.guid].appendChild(name);
@@ -142,6 +142,8 @@ const mod = {
 	},
 
 	async _StoreChange (inputData) {
+		mod._ValueDocument = inputData;
+
 		mod.ReactDocument(inputData);
 		
 		mod._ValueJournaledChanges.push(await toDataURI(Automerge.getLastLocalChange(inputData)));
