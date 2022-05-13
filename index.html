@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width">
 
 	<script src="webxdc.js"></script>
+	<script type="application/javascript" src="__external/automerge.min.js"></script>
+	<script type="application/javascript" src="__external/OLSKThrottle.js"></script>
 	<script src="ui-behaviour.js"></script>
 	<link rel="stylesheet" type="text/css" href="ui-style.css" />
 </head>
@@ -13,6 +15,14 @@
 <body>
 
 <h1 class="AppHeading">webxdc-checklist</h1>
+
+<form class="AppCreate AppMessageForm">
+  <input id="AppCreateField" class="AppMessageField" type="text" placeholder="Description" autofocus />
+  <input class="AppCreateButton AppMessageButton" type="submit" onclick="AppBehaviour.ControlCreate(window.AppCreateField.value); return false;" value="Create" />
+</form>
+
+<div id="AppItems"></div>
+
 <script>
 AppBehaviour.LifecyclePageDidLoad();
 </script>

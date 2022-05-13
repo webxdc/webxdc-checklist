@@ -18,6 +18,10 @@ body {
 	margin: 0;
 }
 
+#AppCreateField, .AppCreateButton {
+	font-size: 12px;
+	font-weight: bold;
+}
 
 .AppMessageField {
 	border-right: none;
@@ -31,3 +35,13 @@ body {
 	background: lightgray;
 }
 
+#AppItems {
+	margin-top: 10px;
+
+	display: flex;
+	overflow-y: scroll;
+}
+
+.AppMessage {
+	text-align: left;
+}

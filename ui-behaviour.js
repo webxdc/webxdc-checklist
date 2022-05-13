@@ -29,10 +29,63 @@ const mod = {
 		}];
 	},
 
+	// VALUE
+
+	_ValueDocument: Automerge.init(),
+	_ValueJournaledChanges: [],
+
+	// CONTROL
+
+	ControlCreate (inputData) {
+		if (!inputData.trim().length) {
+			return;
+		}
+
+		const created = Date.now();
+
+		mod._StoreChange(Automerge.change(mod._ValueDocument, function (doc) {
+			if (!doc.items) {
+		  	doc.items = [];
+		  }
+
+		  doc.items.push({
+				guid: created.toString(36),
+				text: inputData,
+				done: false,
+				created,
+				creator: window.webxdc.selfAddr,
+				editor: window.webxdc.selfAddr,
+			})
+		}));
+
+		window.AppCreateField.value = '';
+	},
+
 
 	// MESSAGE
 
-	MessageDidArrive (inputData) {
+	async MessageDidArrive (inputData) {
+		mod.ReactDocument(Automerge.applyChanges(mod._ValueDocument, await Promise.all(inputData.payload.changes.map(toByteArray)))[0]);
+	},
+
+	// REACT
+
+	async ReactDocument (doc) {
+		mod._ValueDocument = doc;
+
+		let list = document.querySelector('#AppItems');
+		list.innerHTML = '';
+		doc.items && doc.items.forEach((item, index) => {
+		  let element = document.createElement('div')
+		  element.innerHTML = item.text;
+		  element.classList.add('AppMessage');
+		  element.style = item.done ? 'text-decoration: line-through' : ''
+		  list.appendChild(element)
+
+		  element.onclick = function () {
+		  	mod.ControlToggle(index);
+		  };
+		})
 	},
 
 	// SETUP
@@ -43,6 +96,9 @@ const mod = {
 		});
 	},
 
+	SetupListener () {
+		window.webxdc.setUpdateListener(mod.MessageDidArrive);
+	},
 
 	// LIFECYCLE
 
