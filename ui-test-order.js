@@ -32,7 +32,7 @@ describe('AppMain_Order', function () {
 		});
 
 		it('places recent at the top', function () {
-			browser.assert.text(AppMessageName, items.reverse().join(''));
+			browser.assert.text(AppListItemName, items.reverse().join(''));
 		});
 	
 	});
@@ -40,19 +40,19 @@ describe('AppMain_Order', function () {
 	context('update', function () {
 
 		before(function () {
-			return browser.click(`${ AppMessageName }:nth-of-type(1)`);
+			return browser.click(`${ AppListItemName }:nth-of-type(1)`);
 		});
 		
 		before(function () {
-			return browser.fill(AppMessageUpdateField, itemUpdate);
+			return browser.fill(AppListItemUpdateField, itemUpdate);
 		});
 		
 		before(function () {
-			return browser.click(AppMessageUpdateButton);
+			return browser.click(AppListItemUpdateButton);
 		});
 		
 		it('maintains order', function () {
-			browser.assert.text(AppMessageName, [itemUpdate, items[1], items[2]].join(''));
+			browser.assert.text(AppListItemName, [itemUpdate, items[1], items[2]].join(''));
 		});
 	
 	});
@@ -74,7 +74,7 @@ describe('AppMain_Order', function () {
 		});
 
 		it('maintains order', function () {
-			browser.assert.text(AppMessageName, [item, itemUpdate].join
+			browser.assert.text(AppListItemName, [item, itemUpdate].join
 				(''));
 		});
 	

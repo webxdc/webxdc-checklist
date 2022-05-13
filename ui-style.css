@@ -6,11 +6,11 @@ body {
 	font-family: Helvetica, Arial, sans-serif;
 }
 
-.AppMessageForm {
+.AppListItemForm {
 	display: flex;
 }
 
-.AppMessageField, .AppMessageButton {
+.AppListItemField, .AppListItemButton {
 	padding: var(--AppPadding);
 	border: 1px solid black;
 	border-radius: var(--AppPadding);
@@ -23,25 +23,25 @@ body {
 	font-weight: bold;
 }
 
-.AppMessageField {
+.AppListItemField {
 	border-right: none;
 	border-radius: var(--AppPadding) 0 0 var(--AppPadding);
 }
 
-.AppMessageButton {
+.AppListItemButton {
 	border-radius: 0 var(--AppPadding) var(--AppPadding) 0;
 	
 	background: black;
 	background: lightgray;
 }
 
-#AppItems {
+#AppList {
 	margin-top: 10px;
 
 	display: flex;
 	overflow-y: scroll;
 }
 
-.AppMessage {
+.AppListItem {
 	text-align: left;
 }

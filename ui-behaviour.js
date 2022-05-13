@@ -66,20 +66,20 @@ const mod = {
 	InterfaceEdit (index) {
 		const item = mod._ValueDocument.items[index];
 
-		const name = document.querySelector('#' + item.guid + ' .AppMessageName');
+		const name = document.querySelector('#' + item.guid + ' .AppListItemName');
 		name.remove();
 
 		const form = document.createElement('form');
 		form.classList.add('AppUpdate');
-		form.classList.add('AppMessageForm');
+		form.classList.add('AppListItemForm');
 		form.id = item.guid + '-form'
 		form.innerHTML = `
-		<input class="AppMessageUpdateField AppMessageField" type="text" value="${ item.text }" autofocus />
-		<input class="AppMessageUpdateButton AppMessageButton" type="submit" value="Update" />`;
+		<input class="AppListItemUpdateField AppListItemField" type="text" value="${ item.text }" autofocus />
+		<input class="AppListItemUpdateButton AppListItemButton" type="submit" value="Update" />`;
 		form.onsubmit = function () {
 			event.preventDefault();
 
-			const response = document.querySelector(`#${ item.guid }-form .AppMessageUpdateField`).value;
+			const response = document.querySelector(`#${ item.guid }-form .AppListItemUpdateField`).value;
 			form.remove();
 
 			if (!response.trim().length) {
@@ -120,6 +120,11 @@ const mod = {
 		window.AppCreateField.value = '';
 	},
 
+	ControlToggle (index) {
+		mod._StoreChange(Automerge.change(mod._ValueDocument, (doc) => {
+			doc.items[index].done = !doc.items[index].done;
+		}));``
+	},
 
 	ControlUpdate (index, text) {
 		mod._StoreChange(Automerge.change(mod._ValueDocument, function (doc) {
@@ -166,13 +171,13 @@ const mod = {
 	// REACT
 
 	async ReactDocument (doc) {
-		const list = document.querySelector('#AppItems');
+		const list = document.querySelector('#AppList');
 		list.innerHTML = '';
 		doc.items && doc.items.forEach((item, index) => {
 		  const element = document.createElement('div')
 		  element.id = item.guid;
-		  element.innerHTML = `<span class="AppMessageName" onclick="AppBehaviour.InterfaceEdit(${ index });">${ item.text }</span>`;
-		  element.classList.add('AppMessage');
+		  element.innerHTML = `<span class="AppListItemName" onclick="AppBehaviour.InterfaceEdit(${ index });">${ item.text }</span>`;
+		  element.classList.add('AppListItem');
 		  list.appendChild(element);
 
 		  element.onclick = function () {

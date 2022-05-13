@@ -32,8 +32,8 @@ describe('AppMain_Misc', function () {
 
 	describe('AppCreate', function test_AppCreate () {
 		
-		it('classes AppMessageForm', function () {
-			browser.assert.hasClass(AppCreate, 'AppMessageForm');
+		it('classes AppListItemForm', function () {
+			browser.assert.hasClass(AppCreate, 'AppListItemForm');
 		});
 		
 	});
@@ -52,8 +52,8 @@ describe('AppMain_Misc', function () {
 			browser.assert.attribute(AppCreateField, 'autofocus', '');
 		});
 
-		it('classes AppMessageField', function () {
-			browser.assert.hasClass(AppCreateField, 'AppMessageField');
+		it('classes AppListItemField', function () {
+			browser.assert.hasClass(AppCreateField, 'AppListItemField');
 		});
 		
 	});
@@ -68,13 +68,13 @@ describe('AppMain_Misc', function () {
 			browser.assert.attribute(AppCreateButton, 'value', 'Create');
 		});
 
-		it('classes AppMessageButton', function () {
-			browser.assert.hasClass(AppCreateButton, 'AppMessageButton');
+		it('classes AppListItemButton', function () {
+			browser.assert.hasClass(AppCreateButton, 'AppListItemButton');
 		});
 		
 	});
 
-	describe('AppMessageName', function test_AppMessageName () {
+	describe('AppListItemName', function test_AppListItemName () {
 
 		const item = Math.random().toString();
 		
@@ -87,7 +87,7 @@ describe('AppMain_Misc', function () {
 		});
 		
 		it('sets text', function () {
-			browser.assert.text(AppMessageName, item);
+			browser.assert.text(AppListItemName, item);
 		});
 
 		context('click', function () {
@@ -95,19 +95,19 @@ describe('AppMain_Misc', function () {
 			const item = Math.random().toString();
 
 			before(function () {
-				return browser.click(AppMessageName);
+				return browser.click(AppListItemName);
 			});
 			
 			before(function () {
-				return browser.fill(AppMessageUpdateField, item);
+				return browser.fill(AppListItemUpdateField, item);
 			});
 			
 			before(function () {
-				return browser.click(AppMessageUpdateButton);
+				return browser.click(AppListItemUpdateButton);
 			});
 
 			it('sets text', function () {
-				browser.assert.text(AppMessageName, item);
+				browser.assert.text(AppListItemName, item);
 			});
 		
 		});
@@ -119,45 +119,45 @@ describe('AppMain_Misc', function () {
 		let item;
 
 		before(function () {
-			item = browser.query(AppMessageName).textContent;
+			item = browser.query(AppListItemName).textContent;
 		});
 		
 		before(function () {
-			return browser.click(AppMessageName);
+			return browser.click(AppListItemName);
 		});
 		
-		describe('AppMessageUpdateField', function test_AppMessageUpdateField () {
+		describe('AppListItemUpdateField', function test_AppListItemUpdateField () {
 			
 			it('sets type', function () {
-				browser.assert.attribute(AppMessageUpdateField, 'type', 'text');
+				browser.assert.attribute(AppListItemUpdateField, 'type', 'text');
 			});
 			
 			it('sets value', function () {
-				browser.assert.attribute(AppMessageUpdateField, 'value', item);
+				browser.assert.attribute(AppListItemUpdateField, 'value', item);
 			});
 			
 			it('sets autofocus', function () {
-				browser.assert.attribute(AppMessageUpdateField, 'autofocus', '');
+				browser.assert.attribute(AppListItemUpdateField, 'autofocus', '');
 			});
 
-			it('classes AppMessageField', function () {
-				browser.assert.hasClass(AppMessageUpdateField, 'AppMessageField');
+			it('classes AppListItemField', function () {
+				browser.assert.hasClass(AppListItemUpdateField, 'AppListItemField');
 			});
 			
 		});
 
-		describe('AppMessageUpdateButton', function test_AppMessageUpdateButton () {
+		describe('AppListItemUpdateButton', function test_AppListItemUpdateButton () {
 			
 			it('sets type', function () {
-				browser.assert.attribute(AppMessageUpdateButton, 'type', 'submit');
+				browser.assert.attribute(AppListItemUpdateButton, 'type', 'submit');
 			});
 			
 			it('sets value', function () {
-				browser.assert.attribute(AppMessageUpdateButton, 'value', 'Update');
+				browser.assert.attribute(AppListItemUpdateButton, 'value', 'Update');
 			});
 
-			it('classes AppMessageButton', function () {
-				browser.assert.hasClass(AppMessageUpdateButton, 'AppMessageButton');
+			it('classes AppListItemButton', function () {
+				browser.assert.hasClass(AppListItemUpdateButton, 'AppListItemButton');
 			});
 			
 		});

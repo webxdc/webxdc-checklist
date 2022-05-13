@@ -5,11 +5,11 @@ Object.entries({
 	AppCreate: '.AppCreate',
 	AppCreateField: '#AppCreateField',
 	AppCreateButton: '.AppCreateButton',
-	AppItems: '#AppItems',
-	AppMessage: '.AppMessage',
-	AppMessageName: '.AppMessageName',
-	AppMessageUpdateField: '.AppMessageUpdateField',
-	AppMessageUpdateButton: '.AppMessageUpdateButton',
+	AppList: '#AppList',
+	AppListItem: '.AppListItem',
+	AppListItemName: '.AppListItemName',
+	AppListItemUpdateField: '.AppListItemUpdateField',
+	AppListItemUpdateButton: '.AppListItemUpdateButton',
 }).map(function (e) {
 	return global[e.shift()] = e.pop();
 });
@@ -32,24 +32,24 @@ describe('AppMain_Access', function () {
 		browser.assert.elements(AppCreateButton, 1);
 	});
 
-	it('shows AppItems', function () {
-		browser.assert.elements(AppItems, 1);
+	it('shows AppList', function () {
+		browser.assert.elements(AppList, 1);
 	});
 
-	it('hides AppMessage', function () {
-		browser.assert.elements(AppMessage, 0);
+	it('hides AppListItem', function () {
+		browser.assert.elements(AppListItem, 0);
 	});
 
-	it('hides AppMessageName', function () {
-		browser.assert.elements(AppMessageName, 0);
+	it('hides AppListItemName', function () {
+		browser.assert.elements(AppListItemName, 0);
 	});
 
-	it('hides AppMessageUpdateField', function() {
-		browser.assert.elements(AppMessageUpdateField, 0);
+	it('hides AppListItemUpdateField', function() {
+		browser.assert.elements(AppListItemUpdateField, 0);
 	});
 
-	it('hides AppMessageUpdateButton', function () {
-		browser.assert.elements(AppMessageUpdateButton, 0);
+	it('hides AppListItemUpdateButton', function () {
+		browser.assert.elements(AppListItemUpdateButton, 0);
 	});
 
 	context('submit empty', function () {
@@ -58,20 +58,20 @@ describe('AppMain_Access', function () {
 			return browser.click(AppCreateButton);
 		});
 
-		it('hides AppMessage', function () {
-			browser.assert.elements(AppMessage, 0);
+		it('hides AppListItem', function () {
+			browser.assert.elements(AppListItem, 0);
 		});
 
-		it('hides AppMessageName', function () {
-			browser.assert.elements(AppMessageName, 0);
+		it('hides AppListItemName', function () {
+			browser.assert.elements(AppListItemName, 0);
 		});
 
-		it('hides AppMessageUpdateField', function() {
-			browser.assert.elements(AppMessageUpdateField, 0);
+		it('hides AppListItemUpdateField', function() {
+			browser.assert.elements(AppListItemUpdateField, 0);
 		});
 
-		it('hides AppMessageUpdateButton', function () {
-			browser.assert.elements(AppMessageUpdateButton, 0);
+		it('hides AppListItemUpdateButton', function () {
+			browser.assert.elements(AppListItemUpdateButton, 0);
 		});
 	
 	});
@@ -86,20 +86,20 @@ describe('AppMain_Access', function () {
 			return browser.click(AppCreateButton);
 		});
 
-		it('shows AppMessage', function () {
-			browser.assert.elements(AppMessage, 1);
+		it('shows AppListItem', function () {
+			browser.assert.elements(AppListItem, 1);
 		});
 
-		it('shows AppMessageName', function () {
-			browser.assert.elements(AppMessageName, 1);
+		it('shows AppListItemName', function () {
+			browser.assert.elements(AppListItemName, 1);
 		});
 
-		it('hides AppMessageUpdateField', function() {
-			browser.assert.elements(AppMessageUpdateField, 0);
+		it('hides AppListItemUpdateField', function() {
+			browser.assert.elements(AppListItemUpdateField, 0);
 		});
 
-		it('hides AppMessageUpdateButton', function () {
-			browser.assert.elements(AppMessageUpdateButton, 0);
+		it('hides AppListItemUpdateButton', function () {
+			browser.assert.elements(AppListItemUpdateButton, 0);
 		});
 	
 	});
@@ -107,23 +107,23 @@ describe('AppMain_Access', function () {
 	context('edit', function () {
 
 		before(function () {
-			return browser.click(AppMessageName);
+			return browser.click(AppListItemName);
 		});
 		
-		it('shows AppMessage', function () {
-			browser.assert.elements(AppMessage, 1);
+		it('shows AppListItem', function () {
+			browser.assert.elements(AppListItem, 1);
 		});
 
-		it('hides AppMessageName', function () {
-			browser.assert.elements(AppMessageName, 0);
+		it('hides AppListItemName', function () {
+			browser.assert.elements(AppListItemName, 0);
 		});
 
-		it('shows AppMessageUpdateField', function() {
-			browser.assert.elements(AppMessageUpdateField, 1);
+		it('shows AppListItemUpdateField', function() {
+			browser.assert.elements(AppListItemUpdateField, 1);
 		});
 
-		it('shows AppMessageUpdateButton', function () {
-			browser.assert.elements(AppMessageUpdateButton, 1);
+		it('shows AppListItemUpdateButton', function () {
+			browser.assert.elements(AppListItemUpdateButton, 1);
 		});
 	
 	});
@@ -131,23 +131,23 @@ describe('AppMain_Access', function () {
 	context('edit empty', function () {
 
 		before(function () {
-			return browser.fill(AppMessageUpdateField, '');
+			return browser.fill(AppListItemUpdateField, '');
 		});
 		
 		before(function () {
-			return browser.click(AppMessageUpdateButton);
+			return browser.click(AppListItemUpdateButton);
 		});
 
-		it('hides AppMessage', function () {
-			browser.assert.elements(AppMessage, 0);
+		it('hides AppListItem', function () {
+			browser.assert.elements(AppListItem, 0);
 		});
 
-		it('hides AppMessageUpdateField', function() {
-			browser.assert.elements(AppMessageUpdateField, 0);
+		it('hides AppListItemUpdateField', function() {
+			browser.assert.elements(AppListItemUpdateField, 0);
 		});
 
-		it('hides AppMessageUpdateButton', function () {
-			browser.assert.elements(AppMessageUpdateButton, 0);
+		it('hides AppListItemUpdateButton', function () {
+			browser.assert.elements(AppListItemUpdateButton, 0);
 		});
 	
 	});
