@@ -114,6 +114,38 @@ describe('AppMain_Misc', function () {
 		
 	});
 
+	describe('AppListItemToggle', function test_AppListItemToggle () {
+		
+		it('sets type', function () {
+			browser.assert.attribute(AppListItemToggle, 'type', 'checkbox');
+		});
+
+		context('check', function () {
+			
+			before(function () {
+				return browser.check(AppListItemToggle);
+			});
+			
+			it('classes AppListItemDone', function () {
+				browser.assert.hasClass(AppListItem, 'AppListItemDone');
+			});
+		
+		});
+
+		context('uncheck', function () {
+			
+			before(function () {
+				return browser.uncheck(AppListItemToggle);
+			});
+			
+			it('classes AppListItemDone', function () {
+				browser.assert.hasNoClass(AppListItem, 'AppListItemDone');
+			});
+		
+		});
+		
+	});
+
 	context('edit', function () {
 		
 		let item;

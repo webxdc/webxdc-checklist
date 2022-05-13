@@ -7,6 +7,7 @@ Object.entries({
 	AppCreateButton: '.AppCreateButton',
 	AppList: '#AppList',
 	AppListItem: '.AppListItem',
+	AppListItemToggle: '.AppListItemToggle',
 	AppListItemName: '.AppListItemName',
 	AppListItemUpdateField: '.AppListItemUpdateField',
 	AppListItemUpdateButton: '.AppListItemUpdateButton',
@@ -40,18 +41,6 @@ describe('AppMain_Access', function () {
 		browser.assert.elements(AppListItem, 0);
 	});
 
-	it('hides AppListItemName', function () {
-		browser.assert.elements(AppListItemName, 0);
-	});
-
-	it('hides AppListItemUpdateField', function() {
-		browser.assert.elements(AppListItemUpdateField, 0);
-	});
-
-	it('hides AppListItemUpdateButton', function () {
-		browser.assert.elements(AppListItemUpdateButton, 0);
-	});
-
 	context('submit empty', function () {
 
 		before(function () {
@@ -60,18 +49,6 @@ describe('AppMain_Access', function () {
 
 		it('hides AppListItem', function () {
 			browser.assert.elements(AppListItem, 0);
-		});
-
-		it('hides AppListItemName', function () {
-			browser.assert.elements(AppListItemName, 0);
-		});
-
-		it('hides AppListItemUpdateField', function() {
-			browser.assert.elements(AppListItemUpdateField, 0);
-		});
-
-		it('hides AppListItemUpdateButton', function () {
-			browser.assert.elements(AppListItemUpdateButton, 0);
 		});
 	
 	});
@@ -88,6 +65,10 @@ describe('AppMain_Access', function () {
 
 		it('shows AppListItem', function () {
 			browser.assert.elements(AppListItem, 1);
+		});
+
+		it('shows AppListItemToggle', function () {
+			browser.assert.elements(AppListItemToggle, 1);
 		});
 
 		it('shows AppListItemName', function () {
@@ -110,10 +91,6 @@ describe('AppMain_Access', function () {
 			return browser.click(AppListItemName);
 		});
 		
-		it('shows AppListItem', function () {
-			browser.assert.elements(AppListItem, 1);
-		});
-
 		it('hides AppListItemName', function () {
 			browser.assert.elements(AppListItemName, 0);
 		});
@@ -142,14 +119,6 @@ describe('AppMain_Access', function () {
 			browser.assert.elements(AppListItem, 0);
 		});
 
-		it('hides AppListItemUpdateField', function() {
-			browser.assert.elements(AppListItemUpdateField, 0);
-		});
-
-		it('hides AppListItemUpdateButton', function () {
-			browser.assert.elements(AppListItemUpdateButton, 0);
-		});
-	
 	});
 
 	after(function () {

@@ -121,9 +121,9 @@ const mod = {
 	},
 
 	ControlToggle (index) {
-		mod._StoreChange(Automerge.change(mod._ValueDocument, (doc) => {
+		mod._StoreChange(Automerge.change(mod._ValueDocument, function (doc) {
 			doc.items[index].done = !doc.items[index].done;
-		}));``
+		}));
 	},
 
 	ControlUpdate (index, text) {
@@ -176,13 +176,12 @@ const mod = {
 		doc.items && doc.items.forEach((item, index) => {
 		  const element = document.createElement('li')
 		  element.id = item.guid;
-		  element.innerHTML = `<span class="AppListItemName" onclick="AppBehaviour.InterfaceEdit(${ index });">${ item.text }</span>`;
+		  element.innerHTML = `<input class="AppListItemToggle" type="checkbox" onclick="AppBehaviour.ControlToggle(${ index });" ${ item.done ? 'checked' : '' } /> <span class="AppListItemName" onclick="AppBehaviour.InterfaceEdit(${ index });">${ item.text }</span>`;
 		  element.classList.add('AppListItem');
+		  if (item.done) {
+			  element.classList.add('AppListItemDone');
+		  }
 		  list.appendChild(element);
-
-		  element.onclick = function () {
-		  	// mod.ControlToggle(index);
-		  };
 		})
 	},
 
