@@ -1,3 +1,30 @@
+const toDataURI = async function(inputData) {
+  return new Promise(function (res, rej) {
+    Object.assign(new FileReader(), {
+      onload (e) {
+        return res(e.target.result);
+      }
+    }).readAsDataURL(new Blob([inputData]));
+  });
+};
+
+const toByteArray = async function(inputData) {
+  return new Promise(function (res, rej) {
+    const xhr = Object.assign(new XMLHttpRequest(), {
+      responseType: 'arraybuffer',
+      onload () {
+        if (xhr.status !== 200) {
+          return rej(new Error('problem!'));
+        }
+
+        res(new Uint8Array(xhr.response))
+      },
+    });
+    xhr.open('GET', inputData);
+    xhr.send();
+  });
+};
+
 const Automerge = (typeof window === 'undefined' ? {} : window).Automerge || {
 	init () {
 		return {};
@@ -34,6 +61,39 @@ const mod = {
 	_ValueDocument: Automerge.init(),
 	_ValueJournaledChanges: [],
 
+	// INTERFACE
+
+	InterfaceEdit (index) {
+		const item = mod._ValueDocument.items[index];
+
+		const name = document.querySelector('#' + item.guid + ' .AppMessageName');
+		name.remove();
+
+		const form = document.createElement('form');
+		form.classList.add('AppUpdate');
+		form.classList.add('AppMessageForm');
+		form.id = item.guid + '-form'
+		form.innerHTML = `
+		<input class="AppMessageUpdateField AppMessageField" type="text" value="${ item.text }" autofocus />
+		<input class="AppMessageUpdateButton AppMessageButton" type="submit" value="Update" />`;
+		form.onsubmit = function () {
+			event.preventDefault();
+
+			const response = document.querySelector(`#${ item.guid }-form .AppMessageUpdateField`).value;
+			form.remove();
+
+			if (!response.trim().length) {
+				return mod.ControlDelete(item);
+			}
+
+			window[item.guid].appendChild(name);
+
+			mod.ControlUpdate(index, response);
+		};
+
+		window[item.guid].appendChild(form);
+	},
+
 	// CONTROL
 
 	ControlCreate (inputData) {
@@ -54,7 +114,6 @@ const mod = {
 				done: false,
 				created,
 				creator: window.webxdc.selfAddr,
-				editor: window.webxdc.selfAddr,
 			})
 		}));
 
@@ -62,28 +121,60 @@ const mod = {
 	},
 
 
+	ControlUpdate (index, text) {
+		mod._StoreChange(Automerge.change(mod._ValueDocument, function (doc) {
+			doc.items[index].text = text;
+		}));
+	},
+
+	ControlDelete (index) {
+		mod._StoreChange(Automerge.change(mod._ValueDocument, function (doc) {
+			doc.items.splice(index, 1);
+		}));
+	},
+
+	_ControlJournal (payload) {
+		info = window.webxdc.selfName + ' updated the list';
+		window.webxdc.sendUpdate({
+	    payload,
+	    info,
+		}, info);
+	},
+
+	async _StoreChange (inputData) {
+		mod.ReactDocument(inputData);
+		
+		mod._ValueJournaledChanges.push(await toDataURI(Automerge.getLastLocalChange(inputData)));
+
+		// throttle
+			// journal
+			mod._ControlJournal({
+				changes: mod._ValueJournaledChanges,
+			});
+			mod._ValueJournaledChanges = [];
+	},
+
 	// MESSAGE
 
 	async MessageDidArrive (inputData) {
-		mod.ReactDocument(Automerge.applyChanges(mod._ValueDocument, await Promise.all(inputData.payload.changes.map(toByteArray)))[0]);
+		const changes = await Promise.all(inputData.payload.changes.map(toByteArray));
+		mod.ReactDocument(mod._ValueDocument = Automerge.applyChanges(mod._ValueDocument, changes)[0]);
 	},
 
 	// REACT
 
 	async ReactDocument (doc) {
-		mod._ValueDocument = doc;
-
-		let list = document.querySelector('#AppItems');
+		const list = document.querySelector('#AppItems');
 		list.innerHTML = '';
 		doc.items && doc.items.forEach((item, index) => {
-		  let element = document.createElement('div')
-		  element.innerHTML = item.text;
+		  const element = document.createElement('div')
+		  element.id = item.guid;
+		  element.innerHTML = `<span class="AppMessageName" onclick="AppBehaviour.InterfaceEdit(${ index });">${ item.text }</span>`;
 		  element.classList.add('AppMessage');
-		  element.style = item.done ? 'text-decoration: line-through' : ''
-		  list.appendChild(element)
+		  list.appendChild(element);
 
 		  element.onclick = function () {
-		  	mod.ControlToggle(index);
+		  	// mod.ControlToggle(index);
 		  };
 		})
 	},

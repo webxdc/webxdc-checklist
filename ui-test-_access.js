@@ -7,6 +7,9 @@ Object.entries({
 	AppCreateButton: '.AppCreateButton',
 	AppItems: '#AppItems',
 	AppMessage: '.AppMessage',
+	AppMessageName: '.AppMessageName',
+	AppMessageUpdateField: '.AppMessageUpdateField',
+	AppMessageUpdateButton: '.AppMessageUpdateButton',
 }).map(function (e) {
 	return global[e.shift()] = e.pop();
 });
@@ -37,6 +40,18 @@ describe('AppMain_Access', function () {
 		browser.assert.elements(AppMessage, 0);
 	});
 
+	it('hides AppMessageName', function () {
+		browser.assert.elements(AppMessageName, 0);
+	});
+
+	it('hides AppMessageUpdateField', function() {
+		browser.assert.elements(AppMessageUpdateField, 0);
+	});
+
+	it('hides AppMessageUpdateButton', function () {
+		browser.assert.elements(AppMessageUpdateButton, 0);
+	});
+
 	context('submit empty', function () {
 
 		before(function () {
@@ -47,6 +62,17 @@ describe('AppMain_Access', function () {
 			browser.assert.elements(AppMessage, 0);
 		});
 
+		it('hides AppMessageName', function () {
+			browser.assert.elements(AppMessageName, 0);
+		});
+
+		it('hides AppMessageUpdateField', function() {
+			browser.assert.elements(AppMessageUpdateField, 0);
+		});
+
+		it('hides AppMessageUpdateButton', function () {
+			browser.assert.elements(AppMessageUpdateButton, 0);
+		});
 	
 	});
 
@@ -64,6 +90,65 @@ describe('AppMain_Access', function () {
 			browser.assert.elements(AppMessage, 1);
 		});
 
+		it('shows AppMessageName', function () {
+			browser.assert.elements(AppMessageName, 1);
+		});
+
+		it('hides AppMessageUpdateField', function() {
+			browser.assert.elements(AppMessageUpdateField, 0);
+		});
+
+		it('hides AppMessageUpdateButton', function () {
+			browser.assert.elements(AppMessageUpdateButton, 0);
+		});
+	
+	});
+
+	context('edit', function () {
+
+		before(function () {
+			return browser.click(AppMessageName);
+		});
+		
+		it('shows AppMessage', function () {
+			browser.assert.elements(AppMessage, 1);
+		});
+
+		it('hides AppMessageName', function () {
+			browser.assert.elements(AppMessageName, 0);
+		});
+
+		it('shows AppMessageUpdateField', function() {
+			browser.assert.elements(AppMessageUpdateField, 1);
+		});
+
+		it('shows AppMessageUpdateButton', function () {
+			browser.assert.elements(AppMessageUpdateButton, 1);
+		});
+	
+	});
+
+	context('edit empty', function () {
+
+		before(function () {
+			return browser.fill(AppMessageUpdateField, '');
+		});
+		
+		before(function () {
+			return browser.click(AppMessageUpdateButton);
+		});
+
+		it('hides AppMessage', function () {
+			browser.assert.elements(AppMessage, 0);
+		});
+
+		it('hides AppMessageUpdateField', function() {
+			browser.assert.elements(AppMessageUpdateField, 0);
+		});
+
+		it('hides AppMessageUpdateButton', function () {
+			browser.assert.elements(AppMessageUpdateButton, 0);
+		});
 	
 	});
 
