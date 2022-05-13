@@ -1,0 +1,14 @@
+{
+  "name": "webxdc-checklist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ui-behaviour-tests.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "automerge": "^1.0.1-preview.7"
+  }
+}
