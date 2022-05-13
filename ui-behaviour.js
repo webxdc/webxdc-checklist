@@ -1,3 +1,14 @@
+const Automerge = (typeof window === 'undefined' ? {} : window).Automerge || {
+	init () {
+		return {};
+	},
+	change (doc, callback) {
+		callback(doc);
+		return Object.assign({}, doc);
+	},
+	getLastLocalChange () {},
+};
+
 const mod = {
 
 	OLSKControllerRoutes () {
