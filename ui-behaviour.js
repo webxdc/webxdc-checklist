@@ -174,7 +174,7 @@ const mod = {
 		const list = document.querySelector('#AppList');
 		list.innerHTML = '';
 		doc.items && doc.items.forEach((item, index) => {
-		  const element = document.createElement('div')
+		  const element = document.createElement('li')
 		  element.id = item.guid;
 		  element.innerHTML = `<span class="AppListItemName" onclick="AppBehaviour.InterfaceEdit(${ index });">${ item.text }</span>`;
 		  element.classList.add('AppListItem');
