@@ -1,4 +1,6 @@
-# Checklist
+# moved to https://codeberg.org/webxdc/checklist
+
+## Checklist
 
 Simple collaborative checklist with Automerge demonstrating CRUD (create, read, update, delete) operations.
 
